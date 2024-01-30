@@ -13,6 +13,7 @@ namespace Old096Mechanics
 
         [Description("Should 096 instakill? (A player with positive health effects might survive the attack.)")]
         public bool Instakill { get; set; } = true;
+
         [Description("Should 096 immediately enrage after someone has seen it's face?")]
         public bool ForceEnrageWhenLookedAt { get; set; } = true;
     }
