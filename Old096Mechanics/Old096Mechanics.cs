@@ -7,7 +7,6 @@ namespace Old096Mechanics
     {
         public static Old096Mechanics Instance { get; private set; }
         private EventHandlers Events { get; set; }
-        public Dictionary<Player, InstaKill> IkHubs = new();
         // ---
         public override string Name => "Old096Mechanics";
         public override string Prefix { get; } = "Old096Mechanics";
@@ -17,13 +16,15 @@ namespace Old096Mechanics
 
         public override void OnEnabled()
         {
-            Exiled.Events.Handlers.Player.Spawning += Events.OnSpawning;
+            Exiled.Events.Handlers.Player.Hurting += Events.OnHurting;
+            Exiled.Events.Handlers.Scp096.AddingTarget += Events.OnAddingTarget;
             Instance = this;
             base.OnEnabled();
         }
         public override void OnDisabled()
         {
-            Exiled.Events.Handlers.Player.Spawning -= Events.OnSpawning;
+            Exiled.Events.Handlers.Player.Hurting -= Events.OnHurting;
+            Exiled.Events.Handlers.Scp096.AddingTarget -= Events.OnAddingTarget;
             Instance = null;
             Events = null;
             base.OnDisabled();

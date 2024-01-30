@@ -1,28 +1,25 @@
-﻿using Exiled.API.Features;
-using Exiled.Events.EventArgs.Player;
-using Old096Mechanics.Components;
+﻿using Exiled.Events.EventArgs.Player;
+using Exiled.Events.EventArgs.Scp096;
 
 namespace Old096Mechanics
 {
     public class EventHandlers
     {
-        public void OnSpawning(SpawningEventArgs ev)
+        public void OnHurting(HurtingEventArgs ev)
         {
             if (Old096Mechanics.Instance.Config.Instakill)
             {
-                if (ev.Player.Role.Type == PlayerRoles.RoleTypeId.Scp096)
+                if (ev.Attacker.Role.Type == PlayerRoles.RoleTypeId.Scp096)
                 {
-                    Log.Debug("A player with 096 role has been found, adding InstaKill component.");
-                    ev.Player.GameObject.AddComponent<InstaKill>();
+                    ev.Amount = 100f;
                 }
-                else
-                {
-                    if (ev.Player.ReferenceHub.TryGetComponent(out InstaKill ikComp))
-                    {
-                        Log.Debug("A human with InstaKill component has been found, removing.");
-                        UnityEngine.Object.Destroy(ikComp);
-                    }
-                }
+            }
+        }
+        public void OnAddingTarget(AddingTargetEventArgs ev)
+        {
+            if (Old096Mechanics.Instance.Config.ForceEnrageWhenLookedAt)
+            {
+                ev.Scp096.Enrage();
             }
         }
     }
