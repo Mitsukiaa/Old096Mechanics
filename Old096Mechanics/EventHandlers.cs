@@ -1,5 +1,6 @@
 ﻿using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Scp096;
+using PlayerRoles.PlayableScps.Scp096;
 
 namespace Old096Mechanics
 {
@@ -19,6 +20,7 @@ namespace Old096Mechanics
         {
             if (Old096Mechanics.Instance.Config.ForceEnrageWhenLookedAt)
             {
+                if (ev.Scp096.RageState != Scp096RageState.Enraged && ev.Scp096.RageState != Scp096RageState.Distressed) return;
                 ev.Scp096.Enrage();
             }
         }
